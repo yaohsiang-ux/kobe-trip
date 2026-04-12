@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#4B3621">
+<title>神戶家族旅行 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏯</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDF6EC;--card:#FFFBF5;--border:rgba(196,168,130,.2);--brown:#4B3621;--brownM:#8B6F4E;--brownL:#C4A882;--brownXL:#E8D5BE;--orange:#D65A31;--gold:#E6AF2E;--goldBg:#F9EDDA;--blue:#3B82F6;--green:#16A34A;--amber:#D97706;--purple:#7C3AED;--text:#3D2E1F;--text2:#7A6652;--text3:#A89279}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+
+/* Header */
+.hero{background:linear-gradient(135deg,#4B3621,#6B4E35,#8B6F4E);color:#FDF6EC;padding:32px 16px 22px;text-align:center}
+.hero h1{font-size:1.6rem;font-weight:900;letter-spacing:2px;margin:4px 0}
+.hero .sub{font-size:.85rem;opacity:.8}
+.hero .dates{display:inline-block;margin-top:8px;border:1px solid rgba(230,175,46,.4);background:rgba(230,175,46,.2);border-radius:20px;padding:3px 16px;font-size:.8rem;letter-spacing:1px}
+.cd{background:var(--brown);color:var(--gold);text-align:center;padding:8px;font-size:.82rem;font-weight:600}
+.cd b{font-size:1.15rem}
+
+/* Toolbar */
+.toolbar{position:sticky;top:0;z-index:50;background:rgba(253,246,236,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:8px 12px}
+.tb-inner{max-width:720px;margin:0 auto}
+.tab-row{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.tab-row::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:6px 14px;border-radius:8px;border:none;background:transparent;font-size:.8rem;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;transition:all .2s}
+.tab-btn.active{background:var(--brown);color:#fff}
+.tab-btn.add{background:var(--gold);color:var(--brown);font-weight:700}
+.mode-row{display:flex;justify-content:space-between;align-items:center;margin-top:3px}
+.mode-btn{padding:4px 10px;border-radius:6px;border:none;font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.mode-btn.on{background:var(--orange);color:#fff}
+.mode-btn.off{background:#f0ebe0;color:var(--text2)}
+.sm-btn{padding:4px 8px;border-radius:6px;border:none;font-size:.68rem;cursor:pointer;font-family:inherit;background:#f0ebe0;color:var(--text2)}
+
+/* Content */
+.wrap{max-width:720px;margin:0 auto;padding:12px 16px 80px}
+.day-sec{display:none}.day-sec.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.day-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.day-num{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#FFE4D6,#FFD0B8);display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:900;color:var(--orange);flex-shrink:0}
+.day-head h2{font-size:1.1rem;font-weight:700;line-height:1.3;color:var(--brown)}
+.dm{font-size:.78rem;color:var(--text3);margin-top:2px}
+.theme{font-size:.8rem;color:var(--text2);background:var(--goldBg);padding:8px 12px;border-radius:10px;margin-bottom:14px;border-left:3px solid var(--gold);line-height:1.6}
+
+/* Timeline */
+.tl{position:relative}
+.tl-line{position:absolute;left:18px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,var(--brownL),rgba(196,168,130,.1));border-radius:1px}
+.stop{position:relative;padding-left:48px;padding-bottom:14px}
+.stop-dot{position:absolute;left:11px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--card);z-index:1}
+.stop-dot.transport{border:3px solid var(--blue)}.stop-dot.activity{border:3px solid var(--green)}.stop-dot.meal{border:3px solid var(--amber)}.stop-dot.hotel{border:3px solid var(--purple)}
+.stop-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;box-shadow:0 1px 4px rgba(75,54,33,.06)}
+.stop-card.transport{border-left:4px solid var(--blue)}.stop-card.activity{border-left:4px solid var(--green)}.stop-card.meal{border-left:4px solid var(--amber)}.stop-card.hotel{border-left:4px solid var(--purple)}
+.st{font-size:.7rem;font-weight:700;letter-spacing:.3px}
+.st.transport{color:var(--blue)}.st.activity{color:var(--green)}.st.meal{color:var(--amber)}.st.hotel{color:var(--purple)}
+.stop-title{font-size:.92rem;font-weight:700;color:var(--brown);margin:2px 0}
+.stop-desc{font-size:.8rem;color:var(--text2);line-height:1.55}
+.map-btn{display:inline-flex;align-items:center;gap:3px;font-size:.7rem;font-weight:600;color:#6BA3BE;background:rgba(107,163,190,.1);padding:2px 8px;border-radius:8px;text-decoration:none;margin-top:5px}
+.map-btn:hover{background:rgba(107,163,190,.2)}
+
+/* Restaurants */
+.rest-sec{margin-top:8px;border-top:1px dashed var(--brownXL);padding-top:8px}
+.rest-label{font-size:.68rem;font-weight:700;color:var(--text3);margin-bottom:5px;letter-spacing:1px}
+.rest-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:8px;margin-bottom:4px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.rest-item.sel{background:rgba(214,90,49,.06);border-color:rgba(214,90,49,.2)}
+.rest-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--brownL);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.rest-item.sel .rest-radio{border-color:var(--orange)}
+.rest-radio-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);display:none}
+.rest-item.sel .rest-radio-dot{display:block}
+.rest-info{flex:1;min-width:0}
+.rest-name{font-size:.82rem;font-weight:600;color:var(--text2)}
+.rest-item.sel .rest-name{color:var(--brown)}
+.rest-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.rest-tag{font-size:.62rem;padding:1px 6px;border-radius:4px;background:var(--goldBg);color:var(--amber);font-weight:600}
+.rest-tag.book{background:#FEE;color:#C33}
+.rest-note{font-size:.72rem;color:var(--text3);margin-top:2px;line-height:1.45}
+.rest-nav{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(107,163,190,.12);color:var(--blue);text-decoration:none;font-size:.85rem;flex-shrink:0}
+
+/* Edit controls */
+.edit-bar{display:flex;gap:3px;margin-top:6px;justify-content:flex-end;flex-wrap:wrap}
+.e-btn{width:26px;height:26px;border-radius:6px;border:none;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.e-add{width:100%;padding:10px;border-radius:12px;border:2px dashed var(--brownL);background:transparent;color:var(--brownM);font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+.e-add-r{width:100%;padding:6px;border-radius:6px;border:1px dashed var(--brownL);background:transparent;color:var(--text3);font-size:.7rem;cursor:pointer;font-family:inherit;margin-top:4px}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:#FFFBF5;border-radius:16px;width:100%;max-width:480px;max-height:85vh;overflow:auto;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal h3{font-size:1rem;font-weight:700;color:var(--brown)}
+.modal label{font-size:.72rem;font-weight:600;color:var(--text2);margin-bottom:3px;display:block}
+.modal input,.modal textarea,.modal select{width:100%;padding:7px 10px;border:1px solid #DDD;border-radius:8px;font-size:.84rem;font-family:inherit;background:#fff}
+.modal textarea{resize:vertical}
+.modal-actions{display:flex;gap:8px;margin-top:12px}
+.modal-actions button{flex:1;padding:9px;border-radius:10px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{border:1px solid #ddd;background:#fff;color:var(--text2)}
+.btn-save{border:none;background:var(--orange);color:#fff}
+
+/* FAB */
+.fab{position:fixed;bottom:16px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--brown);color:#FDF6EC;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(75,54,33,.25);display:flex;align-items:center;justify-content:center;z-index:100}
+.fab svg{width:20px;height:20px}
+
+/* Print */
+@media print{.toolbar,.fab,.cd,.edit-bar,.e-add,.e-add-r,.mode-row{display:none!important}.day-sec{display:block!important;page-break-before:always}.day-sec:first-child{page-break-before:avoid}.stop-card{box-shadow:none}body{background:#fff}}
+
+/* Icon picker */
+.icon-grid{display:flex;flex-wrap:wrap;gap:3px}
+.icon-grid button{width:32px;height:32px;border-radius:7px;border:1px solid #ddd;background:#fff;font-size:1rem;cursor:pointer}
+.icon-grid button.picked{border:2px solid var(--orange);background:#FFF0EB}
+.type-row{display:flex;gap:5px}
+.type-btn{flex:1;padding:5px;border-radius:7px;border:none;font-size:.76rem;font-weight:600;cursor:pointer;font-family:inherit}
+.type-btn.picked{color:#fff}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div style="font-size:1.5rem;letter-spacing:4px;margin-bottom:4px">🏯 🚗 🐋 ♨️ 🌿 ✈️</div>
+  <h1>神戶家族旅行</h1>
+  <div class="sub">六人同行 · 六天五夜自駕</div>
+  <div class="dates">2026 / 4 / 20 — 4 / 25</div>
+</div>
+<div class="cd" id="cd"></div>
+<div class="toolbar"><div class="tb-inner">
+  <div class="tab-row" id="tabs"></div>
+  <div class="mode-row" id="modebar" style="display:none">
+    <div style="display:flex;gap:4px">
+      <button class="mode-btn on" onclick="setMode('view')">👁 瀏覽</button>
+      <button class="mode-btn off" onclick="setMode('edit')">✏️ 編輯</button>
+    </div>
+    <div style="display:flex;gap:4px">
+      <button class="sm-btn" onclick="resetAll()">↺ 重置</button>
+      <button class="sm-btn" onclick="window.print()">🖨</button>
+    </div>
+  </div>
+</div></div>
+<div class="wrap" id="content"></div>
+<div id="modal-root"></div>
+<button class="fab" onclick="window.print()" title="列印" id="print-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
+
+<script>
+/* ═══════════ DEFAULT DATA ═══════════ */
+const DEFAULT_DAYS=[
+{date:"4/20（一）",title:"初抵神戶，漫遊百萬夜景港灣",theme:"海陸空順暢銜接，從機場直奔港灣浪漫氛圍",stops:[
+{t:"06:30-10:10",i:"✈️",c:"transport",n:"抵達關西機場",d:"長榮 BR178，KIX 第一航廈",mq:"",r:[]},
+{t:"12:30-13:30",i:"🚗",c:"transport",n:"自駕前往飯店",d:"中途停泉大津PA，買飯糰墊胃、看海景",mq:"泉大津PA",r:[]},
+{t:"13:30-14:30",i:"🏨",c:"hotel",n:"飯店 Check-in & 輕午餐",d:"神戶灣喜來登飯店",mq:"神戸ベイシェラトンホテル",r:[{n:"Sheraton Marche 輕食",q:"シェラトンマルシェ+神戸ベイシェラトン",tag:"飯店內",note:"Check-in 後直接解決",s:1}]},
+{t:"15:00-17:30",i:"🚶",c:"activity",n:"美利堅公園散步 (Meriken Park)",d:"BE KOBE · 神戶港塔 · 海洋博物館 · Magic Hour",mq:"Meriken+Park+Kobe",r:[{n:"TOOTH TOOTH Fish in the Forest",q:"TOOTH+TOOTH+Fish+in+the+Forest+神戸",tag:"下午茶",note:"美利堅公園內，散步途中休息"}]},
+{t:"17:30-18:30",i:"🛍️",c:"activity",n:"Mosaic 廣場逛街",d:"海景商場 · 吉卜力 · SNOOPY · 伴手禮",mq:"Mosaic+Kobe+Harborland",r:[]},
+{t:"（散步零嘴）",i:"🥟",c:"meal",n:"南京町散步美食",d:"去 Mosaic 前或後繞過去",mq:"南京町+神戸",r:[{n:"老祥記（元祖豚饅頭）",q:"老祥記+南京町",tag:"散步美食",note:"大正4年創業 · 6個入¥600",s:1},{n:"YUNYUN 焼小籠包",q:"YUNYUN+南京町+神戸",tag:"散步美食",note:"一天賣6000個 · 3個¥400 · 二樓有座位",s:1}]},
+{t:"18:30-20:30",i:"🍕",c:"meal",n:"景觀晚餐",d:"Mosaic 3F · 窗邊百萬夜景",mq:"",r:[{n:"⭐ Osteria Gaudente",q:"Osteria+Gaudente+Kobe+Mosaic",tag:"需預約",note:"Mosaic 3F · ☎ 078-360-2800",bk:1,s:1},{n:"🏆 ひょうたん（餃子百名店）",q:"ぎょうざ+ひょうたん+三宮",tag:"百名店",note:"半世紀老舖 · 特製味噌醬"},{n:"🏆 播州地酒 ひの",q:"播州地酒+ひの+三宮",tag:"百名店",note:"居酒屋百名店2025 · 天婦羅"}]},
+{t:"21:00-22:30",i:"♨️",c:"hotel",n:"神戶六甲溫泉「濱泉」",d:"飯店3F · 褐色濁湯 · 泡湯後喝牛奶",mq:"神戸ベイシェラトン+濱泉",r:[]}
+]},
+{date:"4/21（二）",title:"世界遺產姬路城與跨海大橋夕陽",theme:"姬路城 · 好古園 · 海鮮美食 | 👟 穿好穿脫的鞋",stops:[
+{t:"09:00",i:"🚗",c:"transport",n:"飯店出發（自駕 70-80 分）",d:"阪神高速3號→第二神明→姬路Bypass",mq:"姫路城大手門駐車場",r:[]},
+{t:"10:30-13:00",i:"🏯",c:"activity",n:"國寶姬路城 (Himeji Castle)",d:"三之丸廣場 · 攻頂或西之丸 · ⚠️ 無電梯需脫鞋",mq:"Himeji+Castle",r:[]},
+{t:"13:00-14:15",i:"🍱",c:"meal",n:"午餐：姬路風味",d:"步行至みゆき通り",mq:"",r:[{n:"⭐ やま義（穴子飯）",q:"やま義+姫路",tag:"首選",note:"姬路名物星鰻蓋飯",s:1},{n:"灘菊（關東煮）",q:"灘菊+姫路+関東煮",tag:"備選",note:"姬路在地風味"},{n:"福亭（定食）",q:"福亭+姫路",tag:"家庭友善",note:"適合全家"}]},
+{t:"14:15-15:30",i:"🍁",c:"activity",n:"好古園 (Koko-en)",d:"9個主題庭園 · 茶室雙樹庵品抹茶",mq:"好古園+姫路",r:[]},
+{t:"17:30-19:30",i:"🍽️",c:"meal",n:"晚餐",d:"回程順路選擇",mq:"",r:[{n:"Marine Pia Kobe Outlet",q:"マリンピア神戸",tag:"家庭推薦",note:"景觀餐廳",s:1},{n:"魚之棚商店街",q:"魚の棚商店街+明石",tag:"吃貨推薦",note:"明石燒 · 海鮮居酒屋"},{n:"🏆 民生（廣東料理）",q:"民生+南京町+神戸+中華",tag:"百名店",note:"名物イカ天 · 創業60年"},{n:"🏆 香港海鮮料理 和",q:"香港海鮮料理+和+花隈",tag:"百名店",note:"中華百名店 · 無化學調味"}]},
+{t:"19:30-20:10",i:"🚗",c:"transport",n:"返回飯店",d:"阪神高速3號 · 泡濱泉",mq:"",r:[]}
+]},
+{date:"4/22（三）",title:"與虎鯨共度的一整天",theme:"沉浸式海洋體驗 | 🚗 全天同一停車場",stops:[
+{t:"09:15",i:"🚗",c:"transport",n:"飯店出發",d:"10:00開門搶第一批",mq:"神戸須磨シーワールド",r:[]},
+{t:"10:00-12:00",i:"🐬",c:"activity",n:"神戶須磨海洋世界（上午）",d:"水母區 · 觸摸虹魚",mq:"神戸須磨シーワールド",r:[]},
+{t:"11:30",i:"🍽️",c:"meal",n:"園內午餐",d:"入園後先掃碼登記",mq:"",r:[{n:"Blue Ocean（園內餐廳）",q:"神戸須磨シーワールド",tag:"園內",note:"建議預約11:30",s:1}]},
+{t:"13:00-13:30",i:"🐋",c:"activity",n:"虎鯨表演 (Orca)",d:"巨型玻璃窗 · 跳躍噴水",mq:"",r:[]},
+{t:"14:30-16:00",i:"🏖️",c:"activity",n:"戶外漫遊 & 點心",d:"海岸踩沙 · 松之杜Village · 紀念品",mq:"",r:[]},
+{t:"17:00-18:30",i:"🍽️",c:"meal",n:"晚餐",d:"園區附近或回市區",mq:"",r:[{n:"Red Lobster 須磨店",q:"Red+Lobster+須磨",tag:"美式海鮮",note:"座位寬敞家庭友善",s:1},{n:"Bikkuri Donkey",q:"びっくりドンキー+神戸",tag:"小孩最愛",note:"木盤漢堡排"},{n:"🏆 グリル末松（洋食百名店）",q:"グリル末松+三宮",tag:"百名店",note:"紡錘形オムライス · ☎ 078-241-1028",bk:1},{n:"🏆 くまポチ邸",q:"ケーニヒスクローネ+くまポチ邸+三宮",tag:"親子推薦",note:"パン食べ放題 · くま主題裝潢"}]},
+{t:"18:30",i:"🏨",c:"hotel",n:"返回飯店",d:"溫泉收尾",mq:"",r:[]}
+]},
+{date:"4/23（四）",title:"金湯銀湯洗滌身心，千萬夜景盡收眼底",theme:"有馬溫泉 · 六甲山牧場 · 千萬夜景 | 🧥 山上穿外套",stops:[
+{t:"10:00",i:"🚗",c:"transport",n:"飯店出發",d:"導航有馬里停車場",mq:"有馬里駐車場",r:[]},
+{t:"10:40-13:30",i:"♨️",c:"activity",n:"有馬溫泉 (Arima Onsen)",d:"金之湯足湯→碳酸煎餅→溫泉寺 · 💡 先登記候位",mq:"有馬温泉+金の湯",r:[{n:"くつろぎ家（釜飯）",q:"くつろぎ家+有馬温泉",tag:"有馬名物",note:"先登記候位 · 12:30釜飯",s:1}]},
+{t:"13:30-14:00",i:"🚗",c:"transport",n:"移動上山",d:"有馬街道→裏六甲風車道",mq:"",r:[]},
+{t:"14:00-16:00",i:"🐑",c:"activity",n:"六甲山牧場",d:"綿羊 · 鮮奶霜淇淋 · 或改八音盒博物館",mq:"六甲山牧場",r:[]},
+{t:"18:30-20:00",i:"🍽️",c:"meal",n:"晚餐",d:"下山途中或飯店附近",mq:"",r:[{n:"⭐ Granite Café（山上夜景）",q:"GRANITE+CAFE+六甲山",tag:"景觀推薦",note:"夜景第一排 · Magic Hour",s:1},{n:"木曾路 Kisoji（壽喜燒）",q:"木曽路+御影",tag:"需預約",note:"座敷個室適合家庭",bk:1},{n:"杵屋 Kineya（烏龍麵）",q:"杵屋+六甲アイランド",tag:"飯店旁",note:"簡單快速"}]},
+{t:"20:30",i:"🏨",c:"hotel",n:"返回飯店",d:"",mq:"",r:[]}
+]},
+{date:"4/24（五）",title:"異國晨光、香草花園與神戶牛饗宴",theme:"北野異人館 · 布引香草園 · 神戶牛 · 三宮購物 · 百名店集中日",stops:[
+{t:"09:00",i:"🚗",c:"transport",n:"飯店出發",d:"提早30分鐘",mq:"",r:[]},
+{t:"09:30-10:40",i:"🏘️",c:"activity",n:"北野異人館街",d:"風見雞館 · 星巴克北野店",mq:"北野異人館+風見鶏の館",r:[{n:"🏆 L'AVENUE（甜點百名店#1）",q:"ラヴニュー+北野+神戸",tag:"百名店",note:"チョコ世界冠軍 · フィナンシェ"},{n:"🏆 カファレル 北野本店",q:"カファレル+神戸北野本店",tag:"百名店",note:"1826年義大利創業"}]},
+{t:"11:00-12:30",i:"🌿",c:"activity",n:"布引香草園 (Nunobiki)",d:"纜車上山 · 歐式花園 · 香氛博物館",mq:"神戸布引ハーブ園",r:[]},
+{t:"13:00-14:30",i:"🥩",c:"meal",n:"午餐：神戶牛",d:"⚠️ 務必提前預約",mq:"",r:[{n:"⭐ KOBE PLAISIR 神戶牛",q:"KOBE+PLAISIR+神戸プレジール",tag:"需預約",note:"蒸籠神戶牛/鐵板燒 · ☎ 078-232-1511",bk:1,s:1},{n:"🏆 伊藤グリル（洋食百名店）",q:"伊藤グリル+元町",tag:"百名店",note:"創業1923年 · ランチ¥4-5k"},{n:"🏆 BOVIN（焼肉百名店）",q:"BOVIN+三宮+焼肉",tag:"百名店",note:"黒タン+和牛ハラミ · ¥6-7k/人"}]},
+{t:"14:30-17:00",i:"🛍️",c:"activity",n:"三宮購物時光",d:"中心街 · 舊居留地 · 大丸 · 藥妝伴手禮",mq:"三宮センター街",r:[{n:"カフェ フロインドリーブ",q:"フロインドリーブ+生田+神戸",tag:"拍照景點",note:"教堂改建咖啡館"},{n:"🏆 コムシノワ（麵包百名店）",q:"コムシノワ+comme+chinois+神戸",tag:"百名店",note:"伴手禮麵包"},{n:"🏆 モンプリュ",q:"パティスリー+モンプリュ+元町",tag:"百名店",note:"メレンゲの魔術師"},{n:"🏆 元町ケーキ",q:"元町ケーキ+花隈",tag:"百名店",note:"名物ざくろ · ¥300多"}]},
+{t:"17:00-18:30",i:"🍽️",c:"meal",n:"晚餐",d:"三宮周邊",mq:"",r:[{n:"🏆 瓢たん（餃子百名店）",q:"瓢たん+三宮+餃子",tag:"百名店",note:"神級味噌醬",s:1},{n:"多古（明石燒）",q:"多古+三宮+明石焼き",tag:"在地名物",note:"在地特色明石燒"},{n:"a la campagne",q:"a+la+campagne+三宮",tag:"甜點",note:"水果塔"},{n:"🏆 グリル末松",q:"グリル末松+三宮",tag:"百名店",note:"☎ 078-241-1028",bk:1},{n:"🏆 すずめ（烏龍百名店）",q:"讃岐麺房+すずめ+三宮",tag:"百名店",note:"座敷席 · おでんセルフ"},{n:"🏆 きんとん（豬排）",q:"とんかつ+きんとん+三宮",tag:"百名店",note:"價格親民"},{n:"🏆 SB DINER（漢堡）",q:"SB+DINER+KOBE+三宮",tag:"百名店",note:"美式漢堡"},{n:"🏆 グリル一平",q:"グリル一平+三宮",tag:"百名店",note:"1952年 · デミグラス"},{n:"🏆 SAVOY（咖哩）",q:"SAVOY+サヴォイ+三宮+カレー",tag:"百名店",note:"風味獨特"},{n:"グリル DAITO",q:"グリル+DAITO+三宮",tag:"洋食",note:"カニクリームコロッケ"}]},
+{t:"19:00",i:"🏨",c:"hotel",n:"返回飯店",d:"",mq:"",r:[]}
+]},
+{date:"4/25（六）",title:"與萌獸道別，滿載回憶歸國",theme:"動物王國→還車→KIX | ✈️ BR129 18:30",stops:[
+{t:"09:00-09:30",i:"🏨",c:"hotel",n:"飯店退房",d:"貴重物品護照放隨身包",mq:"",r:[]},
+{t:"10:00-13:30",i:"🦅",c:"activity",n:"神戶動物王國",d:"水豚→11:15飛行秀→午餐→紀念品",mq:"神戸どうぶつ王国",r:[]},
+{t:"12:00",i:"🍽️",c:"meal",n:"園內午餐",d:"漢堡或咖哩飯",mq:"",r:[]},
+{t:"13:30",i:"📦",c:"transport",n:"準備離開",d:"廁所 · 補水 · 導航KIX",mq:"",r:[]},
+{t:"14:00-15:30",i:"🚗",c:"transport",n:"前往關西機場",d:"灣岸線跨海大橋 · 機場島加油",mq:"関西空港レンタカー返却",r:[]},
+{t:"15:30-16:15",i:"🔑",c:"transport",n:"還車 & 接駁",d:"車況 · ETC · 搭接駁至T1",mq:"",r:[]},
+{t:"16:30-17:30",i:"✈️",c:"transport",n:"報到 & 通關",d:"BR129 · 17:00安檢出境",mq:"",r:[]},
+{t:"17:30",i:"🛍️",c:"activity",n:"最後免稅採購",d:"",mq:"",r:[]},
+{t:"18:30",i:"✈️",c:"transport",n:"起飛回家 🇹🇼",d:"預計20:30桃園",mq:"",r:[]}
+]}
+];
+
+/* ═══════════ STATE ═══════════ */
+const STORAGE_KEY='kobe_trip_2026';
+let DAYS, activeTab=0, editMode=false;
+
+function loadData(){
+  try{ const s=localStorage.getItem(STORAGE_KEY); DAYS=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_DAYS)); }
+  catch(e){ DAYS=JSON.parse(JSON.stringify(DEFAULT_DAYS)); }
+}
+function saveData(){ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(DAYS));}catch(e){} }
+function resetAll(){ if(confirm('確定重置為預設行程？所有修改將消失。')){localStorage.removeItem(STORAGE_KEY);loadData();render();} }
+
+/* ═══════════ EXPORT ═══════════ */
+function exportHTML(){
+  // Get full page HTML, replace DEFAULT_DAYS with current DAYS
+  const fullHTML=document.documentElement.outerHTML;
+  // Find and replace the DEFAULT_DAYS block
+  const marker1='const DEFAULT_DAYS=';
+  const marker2=';\n\n/* ═══════════ STATE';
+  const idx1=fullHTML.indexOf(marker1);
+  const idx2=fullHTML.indexOf(marker2);
+  if(idx1===-1||idx2===-1){alert('匯出失敗，請聯繫博文');return;}
+  const newHTML='<!DOCTYPE html>\n<html lang="zh-TW">'+fullHTML.substring(fullHTML.indexOf('<head>'));
+  // Build clean version with current data as new default
+  const before=newHTML.substring(0,newHTML.indexOf(marker1)+marker1.length);
+  const after=newHTML.substring(newHTML.indexOf(marker2));
+  const exported=before+JSON.stringify(DAYS)+after;
+  // Download
+  const blob=new Blob([exported],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  alert('✅ 已下載 index.html\n\n更新到 GitHub 只要一行指令：\ncd ~/Desktop/kobe-trip && cp ~/Downloads/index.html . && git add . && git commit -m "更新行程" && git push');
+}
+
+/* ═══════════ EDIT MODE ═══════════ */
+function setMode(m){
+  editMode=(m==='edit');
+  if(editMode) location.hash='edit'; else history.replaceState(null,'',location.pathname);
+  render();
+}
+
+/* ═══════════ MUTATIONS ═══════════ */
+function toggle(di,si,ri){ DAYS[di].stops[si].r[ri].s=DAYS[di].stops[si].r[ri].s?0:1; saveData(); render(); }
+function go(i){ activeTab=i; render(); }
+function delStop(di,si){ DAYS[di].stops.splice(si,1); saveData(); render(); }
+function moveStop(di,si,dir){ const s=DAYS[di].stops,ni=si+dir; if(ni<0||ni>=s.length)return; [s[si],s[ni]]=[s[ni],s[si]]; saveData(); render(); }
+function addDay(){ DAYS.push({date:"新日期",title:"新行程日",theme:"點擊編輯",stops:[]}); activeTab=DAYS.length-1; saveData(); render(); }
+function delDay(di){ if(DAYS.length<=1)return; DAYS.splice(di,1); if(activeTab>=DAYS.length)activeTab=DAYS.length-1; saveData(); render(); }
+function addRest(di,si){ DAYS[di].stops[si].r.push({n:"新餐廳",q:"",tag:"自訂",note:""}); saveData(); render(); }
+function delRest(di,si,ri){ DAYS[di].stops[si].r.splice(ri,1); saveData(); render(); }
+
+/* ═══════════ MODALS ═══════════ */
+const ICONS=["✈️","🚗","🏨","🚶","🛍️","🍕","🍱","🍽️","♨️","🐬","🐋","🏖️","🐑","🌿","🏘️","🥩","🦅","📦","🔑","🏯","⛩️","🗼","🍜","🍣","☕","🍦","📸","🚡","🎯","📍","🥟"];
+const TYPES=[{v:"transport",l:"交通",cl:"#3B82F6"},{v:"activity",l:"景點",cl:"#16A34A"},{v:"meal",l:"餐食",cl:"#D97706"},{v:"hotel",l:"住宿",cl:"#7C3AED"}];
+
+function showStopModal(di,si){
+  const isNew=(si===-1);
+  const s=isNew?{t:"",i:"📍",c:"activity",n:"",d:"",mq:"",r:[]}:{...DAYS[di].stops[si]};
+  const root=document.getElementById('modal-root');
+  const iconBtns=ICONS.map(ic=>`<button class="icon-grid-btn${s.i===ic?' picked':''}" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('picked'));this.classList.add('picked');window._mS.i='${ic}'">${ic}</button>`).join('');
+  const typeBtns=TYPES.map(tp=>`<button class="type-btn${s.c===tp.v?' picked':''}" style="background:${s.c===tp.v?tp.cl:'#f0f0f0'};color:${s.c===tp.v?'#fff':'#666'}" onclick="window._mS.c='${tp.v}';document.querySelectorAll('.type-btn').forEach(b=>{b.classList.remove('picked');b.style.background='#f0f0f0';b.style.color='#666'});this.classList.add('picked');this.style.background='${tp.cl}';this.style.color='#fff'">${tp.l}</button>`).join('');
+  
+  window._mS={...s};
+  root.innerHTML=`<div class="modal-bg" onclick="closeModal()"><div class="modal" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3>${isNew?'新增景點':'編輯景點'}</h3><button onclick="closeModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#999">✕</button></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label>圖示</label><div class="icon-grid">${iconBtns}</div></div>
+      <div><label>類型</label><div class="type-row">${typeBtns}</div></div>
+      <div><label>時間</label><input id="m-time" value="${s.t||''}" placeholder="09:00-12:00"></div>
+      <div><label>標題</label><input id="m-title" value="${esc(s.n)}" placeholder="景點名稱"></div>
+      <div><label>描述</label><textarea id="m-desc" rows="2" placeholder="詳細說明">${esc(s.d||'')}</textarea></div>
+      <div><label>Google Maps 搜尋</label><input id="m-mq" value="${esc(s.mq||'')}" placeholder="留空不顯示導航"></div>
+      <div class="modal-actions"><button class="btn-cancel" onclick="closeModal()">取消</button><button class="btn-save" onclick="saveStopModal(${di},${si})">儲存</button></div>
+    </div>
+  </div></div>`;
+}
+
+function saveStopModal(di,si){
+  const s=window._mS;
+  s.t=document.getElementById('m-time').value;
+  s.n=document.getElementById('m-title').value;
+  s.d=document.getElementById('m-desc').value;
+  s.mq=document.getElementById('m-mq').value;
+  if(!s.r) s.r=[];
+  if(si===-1) DAYS[di].stops.push(s);
+  else{ s.r=DAYS[di].stops[si].r; DAYS[di].stops[si]=s; }
+  saveData(); closeModal(); render();
+}
+
+function showDayModal(di){
+  const day=DAYS[di];
+  window._mD={date:day.date,title:day.title,theme:day.theme};
+  const root=document.getElementById('modal-root');
+  root.innerHTML=`<div class="modal-bg" onclick="closeModal()"><div class="modal" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3>編輯日程</h3><button onclick="closeModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#999">✕</button></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label>日期</label><input id="md-date" value="${esc(day.date)}"></div>
+      <div><label>標題</label><input id="md-title" value="${esc(day.title)}"></div>
+      <div><label>主題</label><textarea id="md-theme" rows="2">${esc(day.theme)}</textarea></div>
+      <div class="modal-actions"><button class="btn-cancel" onclick="closeModal()">取消</button><button class="btn-save" onclick="saveDayModal(${di})">儲存</button></div>
+    </div>
+  </div></div>`;
+}
+
+function saveDayModal(di){
+  DAYS[di].date=document.getElementById('md-date').value;
+  DAYS[di].title=document.getElementById('md-title').value;
+  DAYS[di].theme=document.getElementById('md-theme').value;
+  saveData(); closeModal(); render();
+}
+
+function showRestModal(di,si,ri){
+  const r=DAYS[di].stops[si].r[ri];
+  const root=document.getElementById('modal-root');
+  root.innerHTML=`<div class="modal-bg" onclick="closeModal()"><div class="modal" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3>編輯餐廳</h3><button onclick="closeModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#999">✕</button></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label>餐廳名稱</label><input id="mr-n" value="${esc(r.n)}"></div>
+      <div><label>Google Maps 搜尋</label><input id="mr-q" value="${esc(r.q||'')}"></div>
+      <div><label>標籤</label><input id="mr-tag" value="${esc(r.tag||'')}"></div>
+      <div><label>備註</label><textarea id="mr-note" rows="2">${esc(r.note||'')}</textarea></div>
+      <div><label>需預約？</label><select id="mr-bk"><option value="0"${r.bk?'':' selected'}>否</option><option value="1"${r.bk?' selected':''}>是</option></select></div>
+      <div class="modal-actions"><button class="btn-cancel" onclick="closeModal()">取消</button><button class="btn-save" onclick="saveRestModal(${di},${si},${ri})">儲存</button></div>
+    </div>
+  </div></div>`;
+}
+
+function saveRestModal(di,si,ri){
+  const r=DAYS[di].stops[si].r[ri];
+  r.n=document.getElementById('mr-n').value;
+  r.q=document.getElementById('mr-q').value;
+  r.tag=document.getElementById('mr-tag').value;
+  r.note=document.getElementById('mr-note').value;
+  r.bk=document.getElementById('mr-bk').value==='1'?1:0;
+  saveData(); closeModal(); render();
+}
+
+function closeModal(){ document.getElementById('modal-root').innerHTML=''; }
+function esc(s){ return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+/* ═══════════ RENDER ═══════════ */
+function render(){
+  // Modebar
+  const mb=document.getElementById('modebar');
+  mb.style.display=editMode||location.hash==='#edit'?'flex':'none';
+  if(location.hash==='#edit'&&!editMode) editMode=true;
+  mb.innerHTML=`<div style="display:flex;gap:4px">
+    <button class="mode-btn ${editMode?'off':'on'}" onclick="setMode('view')">👁 瀏覽</button>
+    <button class="mode-btn ${editMode?'on':'off'}" onclick="setMode('edit')">✏️ 編輯</button>
+  </div><div style="display:flex;gap:4px">
+    ${editMode?'<button class="sm-btn" onclick="exportHTML()" style="background:#D65A31;color:#fff;font-weight:700">📤 匯出發布</button><button class="sm-btn" onclick="resetAll()">↺ 重置</button>':''}
+    <button class="sm-btn" onclick="window.print()">🖨</button>
+  </div>`;
+
+  // Tabs
+  let tabH=DAYS.map((d,i)=>`<button class="tab-btn${i===activeTab?' active':''}" onclick="go(${i})">D${i+1}</button>`).join('');
+  if(editMode) tabH+=`<button class="tab-btn add" onclick="addDay()">＋</button>`;
+  document.getElementById('tabs').innerHTML=tabH;
+
+  // Content
+  const el=document.getElementById('content');
+  el.innerHTML=DAYS.map((day,di)=>{
+    if(di!==activeTab) return '';
+    let h=`<div class="day-sec active">`;
+    // Day header
+    h+=`<div class="day-head"${editMode?` onclick="showDayModal(${di})" style="cursor:pointer"`:''}>
+      <div class="day-num">D${di+1}</div><div style="flex:1">
+      <h2>${day.title}${editMode?'<span style="font-size:.7rem;color:#D65A31;margin-left:6px">✏️</span>':''}</h2>
+      <div class="dm">${day.date}</div></div>
+      ${editMode&&DAYS.length>1?`<button class="e-btn" style="background:#fee;color:#c33" onclick="event.stopPropagation();delDay(${di})">🗑</button>`:''}
+    </div>`;
+    h+=`<div class="theme">🎯 ${day.theme}</div>`;
+    h+=`<div class="tl">`;
+    if(day.stops.length>1) h+=`<div class="tl-line"></div>`;
+
+    day.stops.forEach((s,si)=>{
+      h+=`<div class="stop"><div class="stop-dot ${s.c}"></div><div class="stop-card ${s.c}">`;
+      h+=`<div class="st ${s.c}">${s.t}</div>`;
+      h+=`<div class="stop-title">${s.i} ${s.n}</div>`;
+      if(s.d) h+=`<div class="stop-desc">${s.d}</div>`;
+      if(s.mq) h+=`<a class="map-btn" href="https://www.google.com/maps/search/${s.mq}" target="_blank" rel="noopener">📍 景點導航</a>`;
+
+      // Restaurants
+      if(s.r&&s.r.length){
+        h+=`<div class="rest-sec"><div class="rest-label">🍴 餐廳選項（點選切換）</div>`;
+        s.r.forEach((r,ri)=>{
+          h+=`<div class="rest-item${r.s?' sel':''}" onclick="toggle(${di},${si},${ri})">`;
+          h+=`<div class="rest-radio"><div class="rest-radio-dot"></div></div><div class="rest-info">`;
+          h+=`<div class="rest-name">${r.n}</div><div class="rest-tags"><span class="rest-tag">${r.tag||''}</span>`;
+          if(r.bk) h+=`<span class="rest-tag book">需預約</span>`;
+          h+=`</div>`;
+          if(r.note) h+=`<div class="rest-note">${r.note}</div>`;
+          h+=`</div>`;
+          if(r.q) h+=`<a class="rest-nav" href="https://www.google.com/maps/search/${r.q}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📍</a>`;
+          if(editMode) h+=`<div style="display:flex;flex-direction:column;gap:2px;flex-shrink:0" onclick="event.stopPropagation()">
+            <button class="e-btn" style="background:#E8F4FD;color:#3B82F6;width:22px;height:22px;font-size:.6rem" onclick="showRestModal(${di},${si},${ri})">✏️</button>
+            <button class="e-btn" style="background:#FEE;color:#C33;width:22px;height:22px;font-size:.6rem" onclick="delRest(${di},${si},${ri})">✕</button>
+          </div>`;
+          h+=`</div>`;
+        });
+        if(editMode) h+=`<button class="e-add-r" onclick="addRest(${di},${si})">＋ 加餐廳</button>`;
+        h+=`</div>`;
+      } else if(editMode){
+        h+=`<div style="margin-top:6px"><button class="e-add-r" onclick="addRest(${di},${si})">＋ 加餐廳選項</button></div>`;
+      }
+
+      // Edit controls for stop
+      if(editMode){
+        h+=`<div class="edit-bar">`;
+        if(si>0) h+=`<button class="e-btn" style="background:#f0ebe0;color:#7A6652" onclick="moveStop(${di},${si},-1)">↑</button>`;
+        if(si<day.stops.length-1) h+=`<button class="e-btn" style="background:#f0ebe0;color:#7A6652" onclick="moveStop(${di},${si},1)">↓</button>`;
+        h+=`<button class="e-btn" style="background:#E8F4FD;color:#3B82F6" onclick="showStopModal(${di},${si})">✏️</button>`;
+        h+=`<button class="e-btn" style="background:#FEE;color:#C33" onclick="delStop(${di},${si})">✕</button>`;
+        h+=`</div>`;
+      }
+      h+=`</div></div>`;
+    });
+
+    if(editMode) h+=`<button class="e-add" onclick="showStopModal(${di},-1)" style="margin-left:48px">＋ 新增景點</button>`;
+    h+=`</div></div>`;
+    return h;
+  }).join('');
+
+  // Print FAB visibility
+  document.getElementById('print-fab').style.display=editMode?'none':'flex';
+}
+
+/* ═══════════ COUNTDOWN ═══════════ */
+function countdown(){
+  const t=new Date('2026-04-20T06:30:00+08:00')-new Date(),el=document.getElementById('cd');
+  if(t<=0){el.innerHTML=new Date()<=new Date('2026-04-25T20:30:00+08:00')?'🎌 旅行進行中！':'🏠 旅程圓滿結束！';return;}
+  const d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4);
+  el.innerHTML=`✈️ 出發倒數 <b>${d}</b> 天 <b>${h}</b> 時 <b>${m}</b> 分`;
+}
+
+/* ═══════════ INIT ═══════════ */
+loadData();
+if(location.hash==='#edit') editMode=true;
+countdown(); setInterval(countdown,60000);
+render();
+</script>
+</body>
+</html>
