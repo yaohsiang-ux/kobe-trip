@@ -60,6 +60,15 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .map-btn{display:inline-flex;align-items:center;gap:4px;font-size:.88rem;font-weight:700;color:#1D6FA5;background:rgba(29,111,165,.1);padding:5px 12px;border-radius:10px;text-decoration:none;margin-top:6px}
 .map-btn:hover{background:rgba(29,111,165,.18)}
 
+/* Parking */
+.park-sec{margin-top:8px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:10px;padding:8px 12px}
+.park-label{font-size:.8rem;font-weight:800;color:var(--blue);margin-bottom:4px;letter-spacing:.5px}
+.park-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:.88rem;color:var(--text2)}
+.park-item+.park-item{border-top:1px solid rgba(59,130,246,.1)}
+.park-name{font-weight:700;color:var(--text);flex:1;min-width:0}
+.park-note{font-size:.78rem;color:var(--text3)}
+.park-nav{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,.12);color:var(--blue);text-decoration:none;font-size:.7rem;font-weight:700;flex-shrink:0}
+
 /* Restaurants */
 .rest-sec{margin-top:10px;border-top:2px dashed var(--brownXL);padding-top:10px}
 .rest-label{font-size:.82rem;font-weight:800;color:var(--text3);margin-bottom:6px;letter-spacing:1px}
@@ -144,32 +153,32 @@ const DEFAULT_DAYS=[
 {date:"4/20（一）",title:"初抵神戶，漫遊百萬夜景港灣",theme:"海陸空順暢銜接，從機場直奔港灣浪漫氛圍",stops:[
 {t:"06:30-10:10",i:"✈️",c:"transport",n:"抵達關西機場",d:"長榮 BR178，KIX 第一航廈",mq:"",r:[]},
 {t:"12:30-13:30",i:"🚗",c:"transport",n:"自駕前往飯店",d:"中途停泉大津PA，買飯糰墊胃、看海景",mq:"泉大津PA",r:[]},
-{t:"13:30-14:30",i:"🏨",c:"hotel",n:"飯店 Check-in & 輕午餐",d:"神戶灣喜來登飯店",mq:"神戸ベイシェラトンホテル",r:[{n:"Sheraton Marche 輕食",q:"シェラトンマルシェ+神戸ベイシェラトン",tag:"飯店內",note:"Check-in 後直接解決",s:1}]},
-{t:"15:00-17:30",i:"🚶",c:"activity",n:"美利堅公園散步 (Meriken Park)",d:"BE KOBE · 神戶港塔 · 海洋博物館 · Magic Hour",mq:"Meriken+Park+Kobe",r:[{n:"TOOTH TOOTH Fish in the Forest",q:"TOOTH+TOOTH+Fish+in+the+Forest+神戸",tag:"下午茶",note:"美利堅公園內，散步途中休息"}]},
-{t:"17:30-18:30",i:"🛍️",c:"activity",n:"Mosaic 廣場逛街",d:"海景商場 · 吉卜力 · SNOOPY · 伴手禮",mq:"Mosaic+Kobe+Harborland",r:[]},
-{t:"（散步零嘴）",i:"🥟",c:"meal",n:"南京町散步美食",d:"去 Mosaic 前或後繞過去",mq:"南京町+神戸",r:[{n:"老祥記（元祖豚饅頭）",q:"老祥記+南京町",tag:"散步美食",note:"大正4年創業 · 6個入¥600",s:1},{n:"YUNYUN 焼小籠包",q:"YUNYUN+南京町+神戸",tag:"散步美食",note:"一天賣6000個 · 3個¥400 · 二樓有座位",s:1}]},
+{t:"13:30-14:30",i:"🏨",c:"hotel",n:"飯店 Check-in & 輕午餐",d:"神戶灣喜來登飯店",mq:"神戸ベイシェラトンホテル",pk:[{n:"飯店地下駐車場",q:"神戸ベイシェラトン+ホテル+駐車場",note:"住客免費 · 180台 · 限高2m"}],r:[{n:"Sheraton Marche 輕食",q:"シェラトンマルシェ+神戸ベイシェラトン",tag:"飯店內",note:"Check-in 後直接解決",s:1}]},
+{t:"15:00-17:30",i:"🚶",c:"activity",n:"美利堅公園散步 (Meriken Park)",d:"BE KOBE · 神戶港塔 · 海洋博物館 · Magic Hour",mq:"Meriken+Park+Kobe",pk:[{n:"市營メリケンパーク駐車場",q:"神戸市営メリケンパーク駐車場",note:"30分¥200 · 280台"},{n:"タイムズメリケンパーク",q:"タイムズメリケンパーク駐車場",note:"30分¥210 · 平日首時免費"}],r:[{n:"TOOTH TOOTH Fish in the Forest",q:"TOOTH+TOOTH+Fish+in+the+Forest+神戸",tag:"下午茶",note:"美利堅公園內，散步途中休息"}]},
+{t:"17:30-18:30",i:"🛍️",c:"activity",n:"Mosaic 廣場逛街",d:"海景商場 · 吉卜力 · SNOOPY · 伴手禮",mq:"Mosaic+Kobe+Harborland",pk:[{n:"umie P6駐車場",q:"umie+P6駐車場+神戸ハーバーランド",note:"umie消費滿額可免費 · 離Mosaic最近"}],r:[]},
+{t:"（散步零嘴）",i:"🥟",c:"meal",n:"南京町散步美食",d:"去 Mosaic 前或後繞過去",mq:"南京町+神戸",pk:[{n:"西町34駐車場",q:"西町34駐車場+神戸",note:"15分¥200 · 270台 · 南京町旁"},{n:"トラストパークITB元町",q:"トラストパークITB元町パーキング+神戸",note:"30分¥300 · 80台"}],r:[{n:"老祥記（元祖豚饅頭）",q:"老祥記+南京町",tag:"散步美食",note:"大正4年創業 · 6個入¥600",s:1},{n:"YUNYUN 焼小籠包",q:"YUNYUN+南京町+神戸",tag:"散步美食",note:"一天賣6000個 · 3個¥400 · 二樓有座位",s:1}]},
 {t:"18:30-20:30",i:"🍕",c:"meal",n:"景觀晚餐",d:"Mosaic 3F · 窗邊百萬夜景",mq:"",r:[{n:"⭐ Osteria Gaudente",q:"Osteria+Gaudente+Kobe+Mosaic",tag:"需預約",note:"Mosaic 3F · ☎ 078-360-2800",bk:1,s:1},{n:"🏆 ひょうたん（餃子百名店）",q:"ぎょうざ+ひょうたん+三宮",tag:"百名店",note:"半世紀老舖 · 特製味噌醬"},{n:"🏆 播州地酒 ひの",q:"播州地酒+ひの+三宮",tag:"百名店",note:"居酒屋百名店2025 · 天婦羅"}]},
 {t:"21:00-22:30",i:"♨️",c:"hotel",n:"神戶六甲溫泉「濱泉」",d:"飯店3F · 褐色濁湯 · 泡湯後喝牛奶",mq:"神戸ベイシェラトン+濱泉",r:[]}
 ]},
 {date:"4/21（二）",title:"世界遺產姬路城與跨海大橋夕陽",theme:"姬路城 · 好古園 · 海鮮美食 | 👟 穿好穿脫的鞋",stops:[
 {t:"09:00",i:"🚗",c:"transport",n:"飯店出發（自駕 70-80 分）",d:"阪神高速3號→第二神明→姬路Bypass",mq:"姫路城大手門駐車場",r:[]},
-{t:"10:30-13:00",i:"🏯",c:"activity",n:"國寶姬路城 (Himeji Castle)",d:"三之丸廣場 · 攻頂或西之丸 · ⚠️ 無電梯需脫鞋",mq:"Himeji+Castle",r:[]},
+{t:"10:30-13:00",i:"🏯",c:"activity",n:"國寶姬路城 (Himeji Castle)",d:"三之丸廣場 · 攻頂或西之丸 · ⚠️ 無電梯需脫鞋",mq:"Himeji+Castle",pk:[{n:"大手門駐車場",q:"姫路城+大手門駐車場",note:"3hr¥600 · 1日¥900 · 600台 · 最近"},{n:"イーグレ姫路駐車場",q:"イーグレ姫路+駐車場",note:"3hr¥600 · 1日¥900"}],r:[]},
 {t:"13:00-14:15",i:"🍱",c:"meal",n:"午餐：姬路風味",d:"步行至みゆき通り",mq:"",r:[{n:"⭐ やま義（穴子飯）",q:"やま義+姫路",tag:"首選",note:"姬路名物星鰻蓋飯",s:1},{n:"灘菊（關東煮）",q:"灘菊+姫路+関東煮",tag:"備選",note:"姬路在地風味"},{n:"福亭（定食）",q:"福亭+姫路",tag:"家庭友善",note:"適合全家"}]},
-{t:"14:15-15:30",i:"🍁",c:"activity",n:"好古園 (Koko-en)",d:"9個主題庭園 · 茶室雙樹庵品抹茶",mq:"好古園+姫路",r:[]},
-{t:"17:30-19:30",i:"🍽️",c:"meal",n:"晚餐",d:"回程順路選擇",mq:"",r:[{n:"Marine Pia Kobe Outlet",q:"マリンピア神戸",tag:"家庭推薦",note:"景觀餐廳",s:1},{n:"魚之棚商店街",q:"魚の棚商店街+明石",tag:"吃貨推薦",note:"明石燒 · 海鮮居酒屋"},{n:"🏆 民生（廣東料理）",q:"民生+南京町+神戸+中華",tag:"百名店",note:"名物イカ天 · 創業60年"},{n:"🏆 香港海鮮料理 和",q:"香港海鮮料理+和+花隈",tag:"百名店",note:"中華百名店 · 無化學調味"}]},
+{t:"14:15-15:30",i:"🍁",c:"activity",n:"好古園 (Koko-en)",d:"9個主題庭園 · 茶室雙樹庵品抹茶",mq:"好古園+姫路",pk:[{n:"大手門駐車場（同姬路城）",q:"姫路城+大手門駐車場",note:"步行5分 · 可停同一處"}],r:[]},
+{t:"17:30-19:30",i:"🍽️",c:"meal",n:"晚餐",d:"回程順路選擇",mq:"",r:[{n:"Marine Pia Kobe Outlet",q:"マリンピア神戸",tag:"家庭推薦",note:"景觀餐廳",s:1},{n:"魚之棚商店街",q:"魚の棚商店街+明石",tag:"吃貨推薦",note:"明石燒 · 海鮮居酒屋"},{n:"🏆 民生（廣東料理）",q:"民生+南京町+神戸+中華",tag:"百名店",note:"名物イカ天 · 創業60年"},{n:"🏆 香港海鮮料理 和",q:"香港海鮮料理+和+花隈",tag:"百名店",note:"中華百名店 · 無化學調味"}],pk:[{n:"マリンピア神戸駐車場",q:"三井アウトレットパーク+マリンピア神戸+駐車場",note:"30分¥220 · 平日2hr免費 · 假日1hr免費"}]},
 {t:"19:30-20:10",i:"🚗",c:"transport",n:"返回飯店",d:"阪神高速3號 · 泡濱泉",mq:"",r:[]}
 ]},
 {date:"4/22（三）",title:"金湯銀湯洗滌身心，千萬夜景盡收眼底",theme:"有馬溫泉 · 六甲山牧場 · 千萬夜景 | 🧥 山上風大穿外套",stops:[
 {t:"10:00",i:"🚗",c:"transport",n:"飯店出發",d:"導航有馬里停車場 · 搭接駁車至老街",mq:"有馬里駐車場",r:[]},
-{t:"10:40-13:30",i:"♨️",c:"activity",n:"有馬溫泉 (Arima Onsen)",d:"金之湯足湯→碳酸煎餅→溫泉寺 · 💡 先登記候位",mq:"有馬温泉+金の湯",r:[{n:"くつろぎ家（釜飯）",q:"くつろぎ家+有馬温泉",tag:"有馬名物",note:"先登記候位 · 12:30釜飯",s:1}]},
+{t:"10:40-13:30",i:"♨️",c:"activity",n:"有馬溫泉 (Arima Onsen)",d:"金之湯足湯→碳酸煎餅→溫泉寺 · 💡 先登記候位",mq:"有馬温泉+金の湯",pk:[{n:"有馬里駐車場",q:"有馬里駐車場",note:"平日60分¥200(上限¥1,000) · 假日60分¥300"},{n:"池之坊有料駐車場",q:"池之坊有料駐車場+有馬温泉",note:"金之湯步行1分 · 平日60分¥300"}],r:[{n:"くつろぎ家（釜飯）",q:"くつろぎ家+有馬温泉",tag:"有馬名物",note:"先登記候位 · 12:30釜飯",s:1}]},
 {t:"13:30-14:00",i:"🚗",c:"transport",n:"移動上山",d:"有馬街道→裏六甲風車道",mq:"",r:[]},
-{t:"14:00-16:00",i:"🐑",c:"activity",n:"六甲山牧場",d:"綿羊 · 鮮奶霜淇淋 · 或改八音盒博物館",mq:"六甲山牧場",r:[]},
+{t:"14:00-16:00",i:"🐑",c:"activity",n:"六甲山牧場",d:"綿羊 · 鮮奶霜淇淋 · 或改八音盒博物館",mq:"六甲山牧場",pk:[{n:"六甲山牧場 北駐車場",q:"六甲山牧場+北駐車場",note:"平日¥500 · 假日¥1,000 · 318台 · 正門側"}],r:[]},
 {t:"18:30-20:00",i:"🍽️",c:"meal",n:"晚餐",d:"下山途中或飯店附近",mq:"",r:[{n:"⭐ Granite Café（山上夜景）",q:"GRANITE+CAFE+六甲山",tag:"景觀推薦",note:"夜景第一排 · Magic Hour",s:1},{n:"木曾路 Kisoji（壽喜燒）",q:"木曽路+御影",tag:"需預約",note:"座敷個室適合家庭",bk:1},{n:"杵屋 Kineya（烏龍麵）",q:"杵屋+六甲アイランド",tag:"飯店旁",note:"簡單快速"}]},
 {t:"20:30",i:"🏨",c:"hotel",n:"返回飯店",d:"",mq:"",r:[]}
 ]},
 {date:"4/23（四）",title:"與虎鯨共度的一整天",theme:"沉浸式海洋體驗 | 🚗 全天停同一停車場",stops:[
 {t:"09:15",i:"🚗",c:"transport",n:"飯店出發",d:"10:00開門搶第一批入場",mq:"神戸須磨シーワールド",r:[]},
-{t:"10:00-12:00",i:"🐬",c:"activity",n:"神戶須磨海洋世界（上午）",d:"水母區 · 觸摸虹魚 · Aqua Live",mq:"神戸須磨シーワールド",r:[]},
+{t:"10:00-12:00",i:"🐬",c:"activity",n:"神戶須磨海洋世界（上午）",d:"水母區 · 觸摸虹魚 · Aqua Live",mq:"神戸須磨シーワールド",pk:[{n:"須磨海浜公園駐車場",q:"須磨海浜公園駐車場",note:"平日首hr¥400+¥200/hr(上限¥700) · 假日首hr¥500+¥500/hr · 1,054台"}],r:[]},
 {t:"11:30",i:"🍽️",c:"meal",n:"園內午餐",d:"入園後先掃碼登記",mq:"",r:[{n:"Blue Ocean（園內餐廳）",q:"神戸須磨シーワールド",tag:"園內",note:"建議預約11:30場次",s:1}]},
 {t:"13:00-13:30",i:"🐋",c:"activity",n:"虎鯨表演 (Orca)",d:"巨型玻璃窗 · 跳躍噴水震撼",mq:"",r:[]},
 {t:"14:30-16:00",i:"🏖️",c:"activity",n:"戶外漫遊 & 點心",d:"海岸踩沙 · 松之杜Village · 紀念品",mq:"",r:[]},
@@ -178,18 +187,18 @@ const DEFAULT_DAYS=[
 ]},
 {date:"4/24（五）☔",title:"教堂咖啡 · 神戶牛 · 動物王國（雨天室內版）",theme:"全天室內不淋雨 | フロインドリーブ → 購物 → KOBE PLAISIR → 動物王國",stops:[
 {t:"09:30",i:"🚗",c:"transport",n:"飯店出發",d:"雨天不趕，從容出門",mq:"",r:[]},
-{t:"10:00-11:00",i:"☕",c:"activity",n:"カフェ フロインドリーブ（教堂咖啡館）",d:"大正13年百年老舖 · 元教會建築 · 煉瓦窯烤麵包 · 拍照絕佳",mq:"フロインドリーブ+生田+神戸",r:[{n:"フロインドリーブ 本店",q:"フロインドリーブ+生田+神戸",tag:"百年老舖",note:"ランチセット¥1,320 · クラブハウスサンドウィッチ¥1,320",s:1}]},
-{t:"11:00-12:00",i:"🛍️",c:"activity",n:"三宮購物（上半場）",d:"地下商場完全不淋雨 · 藥妝 · 伴手禮先買一輪",mq:"三宮センター街",r:[{n:"🏆 コムシノワ（麵包百名店）",q:"コムシノワ+comme+chinois+神戸",tag:"百名店",note:"伴手禮麵包"},{n:"🏆 モンプリュ",q:"パティスリー+モンプリュ+元町",tag:"百名店",note:"メレンゲの魔術師"},{n:"🏆 元町ケーキ",q:"元町ケーキ+花隈",tag:"百名店",note:"名物ざくろ · ¥300多"}]},
+{t:"10:00-11:00",i:"☕",c:"activity",n:"カフェ フロインドリーブ（教堂咖啡館）",d:"大正13年百年老舖 · 元教會建築 · 煉瓦窯烤麵包 · 拍照絕佳",mq:"フロインドリーブ+生田+神戸",pk:[{n:"店舖專用停車場",q:"フロインドリーブ+本店+神戸",note:"消費免費 · 僅10台 · 滿了改下方"},{n:"タイムズ北野第4",q:"タイムズ北野第4+神戸",note:"60分¥400 · 備用"}],r:[{n:"フロインドリーブ 本店",q:"フロインドリーブ+生田+神戸",tag:"百年老舖",note:"ランチセット¥1,320 · クラブハウスサンドウィッチ¥1,320",s:1}]},
+{t:"11:00-12:00",i:"🛍️",c:"activity",n:"三宮購物（上半場）",d:"地下商場完全不淋雨 · 藥妝 · 伴手禮先買一輪",mq:"三宮センター街",pk:[{n:"西町34駐車場",q:"西町34駐車場+神戸",note:"15分¥200 · 270台 · 三宮/元町間"}],r:[{n:"🏆 コムシノワ（麵包百名店）",q:"コムシノワ+comme+chinois+神戸",tag:"百名店",note:"伴手禮麵包"},{n:"🏆 モンプリュ",q:"パティスリー+モンプリュ+元町",tag:"百名店",note:"メレンゲの魔術師"},{n:"🏆 元町ケーキ",q:"元町ケーキ+花隈",tag:"百名店",note:"名物ざくろ · ¥300多"}]},
 {t:"12:00-13:30",i:"🥩",c:"meal",n:"午餐：KOBE PLAISIR 神戶牛",d:"⚠️ 務必提前預約 · 步行10分鐘到",mq:"",r:[{n:"⭐ KOBE PLAISIR 神戶牛",q:"KOBE+PLAISIR+神戸プレジール",tag:"需預約",note:"蒸籠神戶牛/鐵板燒 · ☎ 078-232-1511",bk:1,s:1},{n:"🏆 伊藤グリル（洋食百名店）",q:"伊藤グリル+元町",tag:"百名店",note:"創業1923年 · ランチ¥4-5k"},{n:"🏆 BOVIN（焼肉百名店）",q:"BOVIN+三宮+焼肉",tag:"百名店",note:"黒タン+和牛ハラミ · ¥6-7k/人"}]},
 {t:"14:00-14:15",i:"🚂",c:"transport",n:"搭ポートライナー到動物王國",d:"三宮站→計算科學センター站 14分鐘",mq:"",r:[]},
-{t:"14:30-17:00",i:"🦅",c:"activity",n:"神戶動物王國",d:"全天候室內 · 水豚 · 象龜 · 鯨頭鸛 · 飛行秀 · 岳父母可坐著看表演",mq:"神戸どうぶつ王国",r:[]},
+{t:"14:30-17:00",i:"🦅",c:"activity",n:"神戶動物王國",d:"全天候室內 · 水豚 · 象龜 · 鯨頭鸛 · 飛行秀 · 岳父母可坐著看表演",mq:"神戸どうぶつ王国",pk:[{n:"動物王國專用駐車場",q:"神戸どうぶつ王国+駐車場",note:"¥700/次 · 平面+立體"}],r:[]},
 {t:"17:00-18:00",i:"🍽️",c:"meal",n:"晚餐",d:"三宮周邊輕食",mq:"",r:[{n:"🏆 瓢たん（餃子百名店）",q:"瓢たん+三宮+餃子",tag:"百名店",note:"神級味噌醬",s:1},{n:"多古（明石燒）",q:"多古+三宮+明石焼き",tag:"在地名物",note:"在地特色明石燒"},{n:"🏆 すずめ（烏龍百名店）",q:"讃岐麺房+すずめ+三宮",tag:"百名店",note:"座敷席 · おでんセルフ"},{n:"🏆 きんとん（豬排）",q:"とんかつ+きんとん+三宮",tag:"百名店",note:"價格親民"},{n:"🏆 SB DINER（漢堡）",q:"SB+DINER+KOBE+三宮",tag:"百名店",note:"美式漢堡"},{n:"🏆 グリル一平",q:"グリル一平+三宮",tag:"百名店",note:"1952年 · デミグラス"},{n:"🏆 SAVOY（咖哩）",q:"SAVOY+サヴォイ+三宮+カレー",tag:"百名店",note:"風味獨特"},{n:"a la campagne",q:"a+la+campagne+三宮",tag:"甜點",note:"水果塔"},{n:"🏆 グリル末松",q:"グリル末松+三宮",tag:"百名店",note:"☎ 078-241-1028",bk:1},{n:"グリル DAITO",q:"グリル+DAITO+三宮",tag:"洋食",note:"カニクリームコロッケ"}]},
 {t:"18:30",i:"🏨",c:"hotel",n:"返回飯店",d:"溫泉收尾",mq:"",r:[]}
 ]},
 {date:"4/25（六）☀️",title:"異國晨光、香草花園，滿載回憶歸國",theme:"北野異人館 → 布引香草園 → 午餐 → 直奔機場 | ✈️ BR129 18:30",stops:[
 {t:"08:30",i:"🏨",c:"hotel",n:"飯店退房",d:"行李放車上 · 貴重物品護照隨身",mq:"",r:[]},
-{t:"09:00-10:00",i:"🏘️",c:"activity",n:"北野異人館街 (Kitano Ijinkan)",d:"風見雞館 · 星巴克北野店 · 晴天拍照最美",mq:"北野異人館+風見鶏の館",r:[{n:"🏆 L'AVENUE（甜點百名店#1）",q:"ラヴニュー+北野+神戸",tag:"百名店",note:"チョコ世界冠軍 · フィナンシェ伴手禮"},{n:"🏆 カファレル 北野本店",q:"カファレル+神戸北野本店",tag:"百名店",note:"1826年義大利創業 · ジャンドゥーヤ"}]},
-{t:"10:15-11:30",i:"🌿",c:"activity",n:"布引香草園 (Nunobiki Herb Gardens)",d:"搭纜車至山頂 · 歐式花園 · 香氛博物館 · 晴天景色絕美",mq:"神戸布引ハーブ園",r:[]},
+{t:"09:00-10:00",i:"🏘️",c:"activity",n:"北野異人館街 (Kitano Ijinkan)",d:"風見雞館 · 星巴克北野店 · 晴天拍照最美",mq:"北野異人館+風見鶏の館",pk:[{n:"タイムズ北野異人館前",q:"タイムズ北野異人館前",note:"20分¥500 · 12台 · 平日上限¥1,500"},{n:"P.ZONE北野第1",q:"P.ZONE北野第1駐車場+神戸",note:"平日上限約¥800 · 步行5分"}],r:[{n:"🏆 L'AVENUE（甜點百名店#1）",q:"ラヴニュー+北野+神戸",tag:"百名店",note:"チョコ世界冠軍 · フィナンシェ伴手禮"},{n:"🏆 カファレル 北野本店",q:"カファレル+神戸北野本店",tag:"百名店",note:"1826年義大利創業 · ジャンドゥーヤ"}]},
+{t:"10:15-11:30",i:"🌿",c:"activity",n:"布引香草園 (Nunobiki Herb Gardens)",d:"搭纜車至山頂 · 歐式花園 · 香氛博物館 · 晴天景色絕美",mq:"神戸布引ハーブ園",pk:[{n:"新神戸駅前駐車場",q:"新神戸駅前駐車場",note:"纜車站旁 · 約30分¥200〜330"},{n:"タイムズ北野第4（同異人館）",q:"タイムズ北野第4+神戸",note:"步行8分到纜車站 · 60分¥400"}],r:[]},
 {t:"11:45-12:30",i:"🍽️",c:"meal",n:"午餐（快速吃完趕機場）",d:"布引香草園下山後步行到三宮",mq:"",r:[{n:"🏆 讃岐麺房すずめ（烏龍百名店）",q:"讃岐麺房+すずめ+三宮",tag:"百名店",note:"吃得快 · 座敷席 · 岳父母坐得舒服",s:1},{n:"🏆 グリル一平（洋食百名店）",q:"グリル一平+三宮",tag:"百名店",note:"三宮站步行2分 · 1952年老舖"},{n:"南京町快食",q:"南京町+神戸",tag:"最省時間",note:"老祥記+YUNYUN+多古 邊走邊吃"},{n:"🏆 コムシノワ（麵包百名店）",q:"コムシノワ+comme+chinois+神戸",tag:"百名店",note:"買伴手禮＋店內輕食"}]},
 {t:"12:30",i:"🚗",c:"transport",n:"開車往關西機場",d:"阪神高速4號灣岸線 · 跨海大橋 · 車程約1.5小時",mq:"関西空港レンタカー返却",r:[]},
 {t:"14:00-14:30",i:"⛽",c:"transport",n:"機場島加油",d:"還車前加滿油",mq:"",r:[]},
@@ -383,6 +392,19 @@ function render(){
       h+=`<div class="stop-title">${s.i} ${s.n}</div>`;
       if(s.d) h+=`<div class="stop-desc">${s.d}</div>`;
       if(s.mq) h+=`<div style="display:flex;gap:5px;margin-top:6px"><a class="map-btn" href="https://www.google.com/maps/search/${s.mq}" target="_blank" rel="noopener" style="background:rgba(66,133,244,.12);color:#2557A7">G 導航</a><a class="map-btn" href="https://maps.apple.com/?q=${s.mq}" target="_blank" rel="noopener" style="background:rgba(0,0,0,.06);color:#333">🍎 導航</a></div>`;
+
+      // Parking
+      if(s.pk&&s.pk.length){
+        h+=`<div class="park-sec"><div class="park-label">🅿️ 周邊停車場</div>`;
+        s.pk.forEach(p=>{
+          h+=`<div class="park-item"><div style="flex:1;min-width:0"><div class="park-name">${p.n}</div>`;
+          if(p.note) h+=`<div class="park-note">${p.note}</div>`;
+          h+=`</div>`;
+          if(p.q) h+=`<div style="display:flex;gap:3px"><a class="park-nav" href="https://www.google.com/maps/search/${p.q}" target="_blank" rel="noopener">G</a><a class="park-nav" href="https://maps.apple.com/?q=${p.q}" target="_blank" rel="noopener" style="font-size:.75rem">🍎</a></div>`;
+          h+=`</div>`;
+        });
+        h+=`</div>`;
+      }
 
       // Restaurants
       if(s.r&&s.r.length){
