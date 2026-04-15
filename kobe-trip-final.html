@@ -214,7 +214,24 @@ const STORAGE_KEY='kobe_trip_2026';
 let DAYS, activeTab=0, editMode=false;
 
 function loadData(){
-  try{ const s=localStorage.getItem(STORAGE_KEY); DAYS=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_DAYS)); }
+  try{
+    const s=localStorage.getItem(STORAGE_KEY);
+    if(s){
+      DAYS=JSON.parse(s);
+      // Merge parking data from defaults if missing
+      DEFAULT_DAYS.forEach((dd,di)=>{
+        if(!DAYS[di]) return;
+        dd.stops.forEach((ds,si)=>{
+          if(ds.pk&&DAYS[di].stops[si]&&!DAYS[di].stops[si].pk){
+            DAYS[di].stops[si].pk=JSON.parse(JSON.stringify(ds.pk));
+          }
+        });
+      });
+      saveData();
+    } else {
+      DAYS=JSON.parse(JSON.stringify(DEFAULT_DAYS));
+    }
+  }
   catch(e){ DAYS=JSON.parse(JSON.stringify(DEFAULT_DAYS)); }
 }
 function saveData(){ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(DAYS));}catch(e){} }
